@@ -99,6 +99,7 @@ breadRecipe(2);
 // create a function named minus
 // the function should take two parameters: num1 and num2
 // the function should return num2 - num1
+// the function should return num2 - num1
 // if num2 is not defined, set the default value to 0
 // example: minus(2, 5) should return 3
 // example: minus(5) should return -5
@@ -210,7 +211,7 @@ function createCountdown(start) {
  *
  */
 
-// fix the function below so that it returns the correct value
+// fix the function below to calculate exponents using recursion
 function power(base, exponent) {
   if (exponent == 0) {
     return 1;
