@@ -37,5 +37,19 @@ let formatTime = (seconds) => {
  *
  * Notes:
  * - The elapsed time is calculated by subtracting the start time from the current time.
- * - Use the formatTime function to format the elapsed time before logging.
+ * - Use the formatTime function to format the elapsed time before logging. comment change.
  */
+function countUpTo(seconds) {
+  let elapsed = 0;
+  let startTime = Date.now();
+  const IntervalID = setInterval(() => {
+    elapsed = Date.now() - startTime;
+    if (elapsed >= seconds * 1000) {
+      //   console.log(`Elapsed time: ${formatTime(elapsed / 1000)}`);
+      console.log("Time's Up");
+      clearInterval(IntervalID);
+    } else {
+      console.log(`Elapsed time: ${formatTime(elapsed / 1000)}`);
+    }
+  }, 1000);
+}
