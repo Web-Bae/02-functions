@@ -13,7 +13,15 @@
  * 3. Convert both minutes and seconds to strings, padding them with a leading zero if they are less than 10.
  * 4. Concatenate minutes and seconds with a colon (:) to form the time string.
  */
-let formatTime = (seconds) => {};
+let formatTime = (seconds) => {
+  let minutes = Math.floor(seconds / 60)
+    .toString()
+    .padStart(2, "0");
+  let second = (seconds % 60).toFixed(0).toString().padStart(2, "0");
+  let converted = `${minutes}:${second}`;
+  console.log(converted);
+  return converted;
+};
 
 /**
  * Creates a timer that counts up to a specified number of seconds, logging the elapsed time each second.
@@ -29,6 +37,19 @@ let formatTime = (seconds) => {};
  *
  * Notes:
  * - The elapsed time is calculated by subtracting the start time from the current time.
- * - Use the formatTime function to format the elapsed time before logging.
+ * - Use the formatTime function to format the elapsed time before logging. comment change.
  */
-function countUpTo(seconds) {}
+function countUpTo(seconds) {
+  let elapsed = 0;
+  let startTime = Date.now();
+  const IntervalID = setInterval(() => {
+    elapsed = Date.now() - startTime;
+    if (elapsed >= seconds * 1000) {
+      //   console.log(`Elapsed time: ${formatTime(elapsed / 1000)}`);
+      console.log("Time's Up");
+      clearInterval(IntervalID);
+    } else {
+      console.log(`Elapsed time: ${formatTime(elapsed / 1000)}`);
+    }
+  }, 1000);
+}
