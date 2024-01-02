@@ -12,6 +12,16 @@
 // The function should return the value of num cubed.
 // The function should be defined using ES6 fat arrow syntax
 
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+
+const square = function (num) {
+  return num * num;
+};
+
+const cubed = (num) => num * num * num;
+
 /**
  * Task 2: Bindings and Scopes
  */
@@ -21,11 +31,13 @@ function scopedFunction() {
   let b = 2;
   var c = 3;
   // modify the statement below to the value that scopedFunction returns true
-  return a + b + c === 99;
+  return a + b + c === 6;
 }
 const result = scopedFunction();
 
 let d = 4;
+
+if (a) d = 5;
 // check that 'a' exists in the global scope, if it does, set d equal to 5
 
 /**
@@ -35,11 +47,21 @@ let d = 4;
 // Define a function named halve that takes one parameter named num.
 // The function should return num halved.
 
+function halve(num) {
+  return num / 2;
+}
+
 // Declare a variable named num in global scope and assign it the value 100.
+
+let num = 100;
 
 // create a variable named halfOfFifty and set it to the return value of halve(50)
 
+let halfOfFifty = halve(50);
+
 // create a variable named halfOfNum and set it to the return value of halve(num)
+
+let halfOfNum = halve(num);
 
 /**
  * Task 4: Complete the breadRecipe function
@@ -48,7 +70,16 @@ let d = 4;
 
 // Create a function named breadRecipe that takes one parameter named numLoaves
 const breadRecipe = function (numLoaves) {
-  // Create a function named addIngredient
+  const addIngredient = (amount, unit, ingredient) => {
+    amount *= numLoaves;
+    if (amount > 1) unit = unit + "s";
+
+    return `${amount} ${unit} ${ingredient}`; // console.log(addIngredient(5, "cup", "flour"));
+  };
+  console.log(addIngredient(2, "cup", "flour"));
+  console.log(addIngredient(2, "cup", "water"));
+  console.log(addIngredient(1, "teaspoon", "salt"));
+  console.log(addIngredient(0.5, "teaspoon", "yeast"));
   // The function should take three parameters: amount, unit, ingredient
   // Calculate total required ingredient amount based on the number of loaves
   // The function should log the ingredient amount and name
@@ -60,7 +91,7 @@ const breadRecipe = function (numLoaves) {
   // example. addIngredient(2, "cup", "flour");
 };
 
-// Call the breadRecipe function with 2 loaves
+breadRecipe(2);
 
 /**
  * Task 5: Optional Parameters
@@ -68,6 +99,11 @@ const breadRecipe = function (numLoaves) {
  */
 
 // create a function named minus
+
+const minus = (num1, num2 = 0) => {
+  return num2 - num1;
+};
+
 // the function should take two parameters: num1 and num2
 // the function should return num2 - num1
 // if num2 is not defined, set the default value to 0
@@ -84,16 +120,22 @@ const breadRecipe = function (numLoaves) {
 // the function should return the sum of all numbers passed in
 // call the function with 1, 2, 3, 4, 5
 const sumRest = function (...nums) {
-
+  let sum = 0;
+  for (let num of nums) sum += num;
+  return sum;
 };
+
+console.log(sumRest(1, 2, 3, 4, 5));
 
 // create a function named sumSpread
 // the function should take one parameter name nums that is an array
 // Use the spread operator to calculate the sum of all numbers in the array
 // It should use the sumRest function defined above
 const sumSpread = function (nums) {
-
+  return sumRest(...nums);
 };
+
+let numsArray = [1, 2, 3];
 
 /**
  * Task 7: Closure (idGenerator)
@@ -104,19 +146,26 @@ const sumSpread = function (nums) {
 // create a function named createIdGenerator
 function createIdGenerator() {
   // create a variable named id and set it to 0
+
+  let id = 0;
+
+  return function () {
+    id++;
+    return id;
+  };
   // return a function that increments id and returns the new value
 }
 
 // create a variable named nextId and set it to the return value of createIdGenerator
-
+let nextId = createIdGenerator();
 // create a variable named id1 and set it to the return value of nextId
-let id1;
+let id1 = nextId();
 
 // create a variable named id2 and set it to the return value of nextId
-let id2;
+let id2 = nextId();
 
 // create a variable named id3 and set it to the return value of nextId
-let id3;
+let id3 = nextId();
 
 /**
  * Task 8: Closure (createGreeter)
@@ -126,15 +175,20 @@ let id3;
 
 // create a function named createGreeter
 function createGreeter(name) {
+  return function () {
+    console.log("Hello, " + name + "!");
+  };
   // return a function that logs "Hello, [name]!" to the console
 }
-
+const greetJohn = createGreeter("John");
+const greetJane = createGreeter("Jane");
 // create a variable named greetJohn and set it to the return value of createGreeter with the name "John"
 
 // create a variable named greetJane and set it to the return value of createGreeter with the name "Jane"
 
 // call greetJohn
-
+greetJohn();
+greetJane();
 // call greetJane
 
 /**
@@ -149,9 +203,9 @@ function createGreeter(name) {
 function createCountdown(start) {
   return function () {
     if (start > 0) {
-      // Your code here
+      return start--;
     } else {
-      // Your code here
+      return 0;
     }
   };
 }
@@ -167,6 +221,6 @@ function power(base, exponent) {
   if (exponent == 0) {
     return 1;
   } else {
-    // Your code here
+    return base * power(base, exponent - 1);
   }
 }
